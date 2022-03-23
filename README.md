@@ -17,8 +17,8 @@ Framework: Dotnet Core web API
 
 **Dependency Injection
 
-(It hepls in decoupling of the project and also minimize the changes)
-DI in dootnetcore are added in startup.ConfigureServices also known as service container.
+(It helps in decoupling of the project and also in minimizing the changes)
+DI in dotnetcore are added in startup.ConfigureServices also known as service container.
 
 Three way we can register service/DI in service container
 1. AddSingleton: Same object for every request
