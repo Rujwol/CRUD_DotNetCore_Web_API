@@ -29,7 +29,9 @@ namespace Royal_application_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson(s =>{
+            services.AddCors();
+            services.AddControllers().AddNewtonsoftJson(s =>
+            {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
@@ -40,11 +42,20 @@ namespace Royal_application_api
             (Configuration.GetConnectionString("CommanderConnection")));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+
+            );
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -60,6 +71,7 @@ namespace Royal_application_api
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
